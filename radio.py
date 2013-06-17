@@ -103,12 +103,15 @@ def main(argv):
 		    	results = client.command_list_end()  # results will be a list with the results			
 			tuned_in = gfreq
 		    freq_changed = False
+		    client.setvol(100-int(gfreq_diff*200))
 		    noise.set_volume(gfreq_diff)
 		else:
 		    if tuned_in>0:
 			noise.set_volume(0.9)
 			tuned_in = 0
-	    print_at (30,1, "MPD status {0}".format(client.status()["state"]))
+			client.setvol(0)
+	    print_at (30,1, "MPD state {0}".format(client.status()["state"]))
+	    print_at (31,1, "MPD volume {0}".format(client.status()["volume"]))
 	    if (client.status()["state"]=="stop"):
 		tuned_in = 0
 		freq_changed=True
