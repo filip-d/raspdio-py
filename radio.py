@@ -89,7 +89,7 @@ def main(argv):
                     	r = raw_r.json()
                     	print_at (23,1, "Response status: {0}".format(raw_r.status_code))
                     	print_at (24,1, "Now playing: {0}".format(r["artist_name"]))
-                    	url = r["preview_url"]
+                    	url = r["stream_url"]
                     	print_at (25,1, "Stream url: {0}".format(url))
                     	pos = r["play_position"]
                     	print_at (26,1, "Play position: {0}".format(pos))
@@ -103,7 +103,7 @@ def main(argv):
 		    	results = client.command_list_end()  # results will be a list with the results			
 			tuned_in = gfreq
 		    freq_changed = False
-		    client.setvol(100-int(gfreq_diff*200))
+		    client.setvol(100-min(100,int(gfreq_diff*200)))
 		    noise.set_volume(gfreq_diff)
 		else:
 		    if tuned_in>0:
